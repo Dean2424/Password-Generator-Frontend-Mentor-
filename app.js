@@ -30,20 +30,36 @@ const clearBtn = document.getElementById("clear-btn");
 
 // Initialize everything when DOM is loaded
 function initializeApp() {
-    
+
     // Clear localStorage for testing (remove this line after testing)
     //localStorage.clear();
     
-    // --- ADD LOCAL STORAGE ---
+    // Force default values first to ensure clean state
+    lengthRange.value = 6;
+    uppercaseCheckbox.checked = false;
+    lowercaseCheckbox.checked = false;
+    numbersCheckbox.checked = false;
+    symbolsCheckbox.checked = false;
+    passwordInput.value = "";
+    
+    // --- THEN ADD LOCAL STORAGE OVERRIDES ---
     if (localStorage.getItem("length")) {
         lengthRange.value = localStorage.getItem("length");
     }
     
-    // Set all checkboxes to unchecked by default, then check only if localStorage says so
-    uppercaseCheckbox.checked = localStorage.getItem("uppercase") === "true";
-    lowercaseCheckbox.checked = localStorage.getItem("lowercase") === "true";
-    numbersCheckbox.checked = localStorage.getItem("numbers") === "true";
-    symbolsCheckbox.checked = localStorage.getItem("symbols") === "true";
+    // Set checkboxes based on localStorage (will remain false if no localStorage data)
+    if (localStorage.getItem("uppercase") === "true") {
+        uppercaseCheckbox.checked = true;
+    }
+    if (localStorage.getItem("lowercase") === "true") {
+        lowercaseCheckbox.checked = true;
+    }
+    if (localStorage.getItem("numbers") === "true") {
+        numbersCheckbox.checked = true;
+    }
+    if (localStorage.getItem("symbols") === "true") {
+        symbolsCheckbox.checked = true;
+    }
     
     // Debug: Log localStorage values
     console.log("localStorage values:");
@@ -51,6 +67,7 @@ function initializeApp() {
     console.log("lowercase:", localStorage.getItem("lowercase"));
     console.log("numbers:", localStorage.getItem("numbers"));
     console.log("symbols:", localStorage.getItem("symbols"));
+    console.log("length:", localStorage.getItem("length"));
     
     if (localStorage.getItem("password")) {
         passwordInput.value = localStorage.getItem("password");
@@ -75,6 +92,26 @@ if (document.readyState === 'loading') {
 } else {
     initializeApp();
 }
+
+// Additional safety net for GitHub Pages - force initialization on window load
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        // Force correct default values on window load (GitHub Pages cache fix)
+        if (!localStorage.getItem("length")) {
+            lengthRange.value = 6;
+            lengthDisplay.textContent = lengthRange.value;
+            updateSliderBackground();
+        }
+        
+        // Ensure checkboxes are correct
+        if (!localStorage.getItem("uppercase")) uppercaseCheckbox.checked = false;
+        if (!localStorage.getItem("lowercase")) lowercaseCheckbox.checked = false;
+        if (!localStorage.getItem("numbers")) numbersCheckbox.checked = false;
+        if (!localStorage.getItem("symbols")) symbolsCheckbox.checked = false;
+        
+        console.log("Window load backup initialization completed");
+    }, 100);
+});
 
 //Character Length
 lengthRange.addEventListener("input", function() {
