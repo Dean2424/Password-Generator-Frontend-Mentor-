@@ -28,24 +28,40 @@ const copiedMessage = document.getElementById("copied-message");
 const strengthIndicator = document.getElementById("strength-indicator");
 const clearBtn = document.getElementById("clear-btn");
 
-// --- ADD LOCAL STORAGE ---
-if (localStorage.getItem("length")) {
-    lengthRange.value = localStorage.getItem("length");
+// Initialize everything when DOM is loaded
+function initializeApp() {
+
+    // --- ADD LOCAL STORAGE ---
+    if (localStorage.getItem("length")) {
+        lengthRange.value = localStorage.getItem("length");
+    }
+    if (localStorage.getItem("uppercase")) uppercaseCheckbox.checked = (localStorage.getItem("uppercase") === "true");
+    if (localStorage.getItem("lowercase")) lowercaseCheckbox.checked = (localStorage.getItem("lowercase") === "true");
+    if (localStorage.getItem("numbers")) numbersCheckbox.checked = (localStorage.getItem("numbers") === "true");
+    if (localStorage.getItem("symbols")) symbolsCheckbox.checked = (localStorage.getItem("symbols") === "true");
+    if (localStorage.getItem("password")) {
+        passwordInput.value = localStorage.getItem("password");
+        updateStrengthIndicator(passwordInput.value);
+    }
+
+    // Initialize display and slider background
     lengthDisplay.textContent = lengthRange.value;
     updateSliderBackground();
-}
-if (localStorage.getItem("uppercase")) uppercaseCheckbox.checked = (localStorage.getItem("uppercase") === "true");
-if (localStorage.getItem("lowercase")) lowercaseCheckbox.checked = (localStorage.getItem("lowercase") === "true");
-if (localStorage.getItem("numbers")) numbersCheckbox.checked = (localStorage.getItem("numbers") === "true");
-if (localStorage.getItem("symbols")) symbolsCheckbox.checked = (localStorage.getItem("symbols") === "true");
-if (localStorage.getItem("password")) {
-    passwordInput.value = localStorage.getItem("password");
-    updateStrengthIndicator(passwordInput.value);
+    
+    // Initialize strength indicator
+    if (passwordInput.value === "") {
+        resetStrengthIndicator();
+    } else {
+        updateStrengthIndicator(passwordInput.value);
+    }
 }
 
-// Initialize display on page load
-lengthDisplay.textContent = lengthRange.value;
-updateSliderBackground();
+// Run initialization when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
 
 //Character Length
 lengthRange.addEventListener("input", function() {
@@ -67,9 +83,16 @@ clearBtn.addEventListener("click", clearPassword);
 
 //Update Slider Background Function
 function updateSliderBackground() {
-    const min = parseInt(lengthRange.min);
-    const max = parseInt(lengthRange.max);
-    const val = parseInt(lengthRange.value);
+    // Ensure the range element exists and has valid values
+    if (!lengthRange || !lengthRange.min || !lengthRange.max || !lengthRange.value) {
+        // If elements aren't ready, try again in a moment
+        setTimeout(updateSliderBackground, 10);
+        return;
+    }
+    
+    const min = parseInt(lengthRange.min) || 6;
+    const max = parseInt(lengthRange.max) || 20;
+    const val = parseInt(lengthRange.value) || 6;
 
     const percent = ((val - min) / (max - min)) * 100;
 
@@ -175,11 +198,6 @@ function resetStrengthIndicator() {
         bar.style.background = "#18171F"; // default bar color
         bar.style.transition = "background 0.3s";
     });
-}
-if (passwordInput.value === "") {
-    resetStrengthIndicator();
-} else {
-    updateStrengthIndicator(passwordInput.value);
 }
 
 //Clear Button Function
