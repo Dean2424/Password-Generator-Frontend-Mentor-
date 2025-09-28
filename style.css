@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JetBrains Mono', sans-serif;
+    background-color: #08070B;
+    color: #E6E5EA;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #817D92;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.input-password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#24232C ;
+    width: 33.75rem;
+    height: 5rem;
+    margin: 0 auto;
+    gap: 5rem;
+}
+
+.copied-message {
+    position: absolute;
+    right: 4rem;
+    top: 1.9rem;
+    color: #A4FFAF;
+    font-size: 1.125rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s;
+    
+}
+
+.copied-message.show {
+    opacity: 1;
+  
+}
+
+.password-input {
+    background-color: #24232C;
+    border: none;
+    outline: none;
+    font-size: 2rem;
+    color: #E6E5EA;
+}
+
+.btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease-in;
+}
+
+.generate-details {
+    width: 33.75rem;
+    height: 36rem;
+    background-color: #24232C;
+    margin: 2rem auto;
+}
+
+.length {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.character-length {
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.password-length {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #A4FFAF;
+}
+
+.choose-length {
+    width: 29.75rem;
+    height: 0.5rem;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 4px;
+    outline: none;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Default track */
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+} 
+
+
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    margin-top: -0.75rem;
+    background: #E6E5EA;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 2px #18171F;
+    transition: background 0.2s;
+}
+
+
+.check {
+    align-items: center;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 2px solid #E6E5EA;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: 0.2s, border-color 0.2s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #A4FFAF;
+    border: none;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 0.05rem;
+    width: 0.25rem;
+    height: 0.5rem;
+    border: solid #18171F;
+    border-width: 0 0.15rem 0.15rem 0;
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+label {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+
+.strength-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 29.75rem;
+    height: 4.5rem;
+    background-color: #18171F;
+    padding: 2rem;
+    margin: 2rem auto;
+}
+
+.strength {
+    margin-left: 1.5rem;
+    text-transform: uppercase;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #817D92;
+}
+
+.meter-boxes {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.str {
+    width: 0.625rem;
+    height: 1.75rem;
+    border: 2px solid #E6E5EA;
+}
+
+.password-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 29.75rem;
+    height: 4.0625rem;
+    background-color: #A4FFAF;
+    margin-left: 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    gap: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease-in;
+}
+
+.clear-btn-style {
+    background-color: red;
+    font-size: 1.125rem;
+    font-weight: 600;
+    width: 8rem;
+    height: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 13rem;
+    border: none;
+    outline: none;
+    transition: all .2s ease-in;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.arrow {
+    margin-bottom: 2px
+}
+
+
+#copy-btn:hover img {
+    filter: brightness(0) invert(1);
+    transition: filter 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: #18171F;
+    border: 2px solid #E6E5EA
+}
+
+input[type="checkbox"]:hover {
+    border-color: #A4FFAF;
+}
+
+.password-btn:hover {
+    background-color: #24232C;
+    border: 2px solid #A4FFAF;
+    color: #A4FFAF;
+}
+
+.password-btn:hover .arrow {
+    filter: invert(66%) sepia(87%) saturate(749%) hue-rotate(67deg) brightness(400%) contrast(101%);
+    transition: filter 0.2s;
+}
+
+
+.clear-btn-style:hover {
+  border: 2px solid red;
+  color: red;
+  background-color: #24232C;
+}

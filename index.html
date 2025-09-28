@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  
+  <title>Password Generator</title>
+</head>
+<body>
+ <div class="wrapper">
+  <h1>Password Generator</h1>
+  <div class="input-password-container">
+  <input type="text" name="password" id="password" class="password-input" placeholder="P4$5W0rD!" readonly>
+  <button id="copy-btn" class="btn">
+    <span id="copied-message" class="copied-message">COPIED</span>
+    <img src="./imgs/images/icon-copy.svg" alt="Copy Icon">
+  </button>
+  </div>
+  <div class="generate-details">
+    <div class="length" id="length-container">
+      <p class="character-length">Character Length</p>
+      <p class="password-length" id="password-length">0</p>
+    </div>
+    <input type="range" name="length" id="length" class="choose-length" min="6" max="20" value="6" step="1">
+    <div class="check">
+      <input type="checkbox" name="uppercase" id="uppercase">
+      <label for="uppercase">Include Uppercase Letters</label>
+    </div>
+    <div class="check">
+      <input type="checkbox" name="lowercase" id="lowercase">
+      <label for="lowercase">Include Lowercase Letters</label>
+    </div>
+    <div class="check">
+      <input type="checkbox" name="numbers" id="numbers">
+      <label for="numbers">Include Numbers</label>
+    </div>
+    <div class="check">
+      <input type="checkbox" name="symbols" id="symbols">
+      <label for="symbols">Include Symbols</label>
+    </div>
+    <div class="strength-container" id="strength-indicator">
+      <p>Strength</p>
+      <div class="meter-boxes">
+        <div class="str"></div>
+        <div class="str"></div>
+        <div class="str"></div>
+        <div class="str"></div>
+        <div class="str"></div>
+      </div>
+    </div>
+    <button class="password-btn" id="generate-password" type="button">GENERATE <img src="./imgs/images/icon-arrow-right.svg" alt="Arrow Icon" class="arrow"></button>
+    <button id="clear-btn" class="clear-btn-style">Clear</button>
+  </div>
+ </div>
+<script src="app.js"></script>
+</body>
+</html>
