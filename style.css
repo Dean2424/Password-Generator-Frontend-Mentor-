@@ -287,3 +287,125 @@ input[type="checkbox"]:hover {
   color: red;
   background-color: #24232C;
 }
+
+/* Mobile Media Queries */
+@media screen and (max-width: 768px) {
+  .input-password-container {
+    width: 90vw;
+    max-width: 400px;
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+
+  .generate-details {
+    width: 90vw;
+    max-width: 400px;
+    padding: 1rem;
+  }
+
+  .choose-length {
+    width: calc(100% - 1rem);
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .strength-container {
+    width: calc(100% - 1rem);
+    margin: 1.5rem auto;
+  }
+
+  .password-btn {
+    width: calc(100% - 1rem);
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .clear-btn-style {
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .password-input {
+    font-size: 1.5rem;
+    width: 60%;
+  }
+}
+
+/* Extra small mobile devices */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-password-container {
+    width: 95vw;
+    max-width: 350px;
+    height: 4rem;
+    gap: 1rem;
+  }
+
+  .generate-details {
+    width: 95vw;
+    max-width: 350px;
+    padding: 0.75rem;
+  }
+
+  .password-input {
+    font-size: 1.25rem;
+    width: 65%;
+  }
+
+  .length {
+    padding: 1.5rem 1rem;
+  }
+
+  .choose-length {
+    margin-left: 1rem;
+    margin-bottom: 1.5rem;
+    width: calc(100% - 2rem);
+  }
+
+  .check {
+    margin-left: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .strength-container {
+    width: calc(100% - 1rem);
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+
+  .password-btn {
+    width: calc(100% - 1rem);
+    height: 3.5rem;
+    margin: 0 1rem;
+    font-size: 1rem;
+  }
+
+  .clear-btn-style {
+    width: 6rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Landscape orientation on mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .input-password-container {
+    margin: 1rem auto;
+  }
+
+  .generate-details {
+    margin: 1rem auto;
+  }
+
+  h1 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
