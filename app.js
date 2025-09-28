@@ -28,37 +28,56 @@ const copiedMessage = document.getElementById("copied-message");
 const strengthIndicator = document.getElementById("strength-indicator");
 const clearBtn = document.getElementById("clear-btn");
 
+// Chrome-specific form reset function
+function chromeFormReset() {
+    // Chrome sometimes persists form state, force reset
+    lengthRange.value = 6;
+    lengthRange.setAttribute('value', '6');
+    uppercaseCheckbox.checked = false;
+    uppercaseCheckbox.removeAttribute('checked');
+    lowercaseCheckbox.checked = false;
+    lowercaseCheckbox.removeAttribute('checked');
+    numbersCheckbox.checked = false;
+    numbersCheckbox.removeAttribute('checked');
+    symbolsCheckbox.checked = false;
+    symbolsCheckbox.removeAttribute('checked');
+    passwordInput.value = "";
+}
+
 // Initialize everything when DOM is loaded
 function initializeApp() {
 
     // Clear localStorage for testing (remove this line after testing)
     //localStorage.clear();
     
-    // Force default values first to ensure clean state
-    lengthRange.value = 6;
-    uppercaseCheckbox.checked = false;
-    lowercaseCheckbox.checked = false;
-    numbersCheckbox.checked = false;
-    symbolsCheckbox.checked = false;
-    passwordInput.value = "";
+    // Chrome-specific: Force form reset first
+    chromeFormReset();
+    
+    // Force trigger change events to ensure UI updates
+    lengthRange.dispatchEvent(new Event('input', { bubbles: true }));
     
     // --- THEN ADD LOCAL STORAGE OVERRIDES ---
     if (localStorage.getItem("length")) {
         lengthRange.value = localStorage.getItem("length");
+        lengthRange.setAttribute('value', localStorage.getItem("length"));
     }
     
     // Set checkboxes based on localStorage (will remain false if no localStorage data)
     if (localStorage.getItem("uppercase") === "true") {
         uppercaseCheckbox.checked = true;
+        uppercaseCheckbox.setAttribute('checked', 'checked');
     }
     if (localStorage.getItem("lowercase") === "true") {
         lowercaseCheckbox.checked = true;
+        lowercaseCheckbox.setAttribute('checked', 'checked');
     }
     if (localStorage.getItem("numbers") === "true") {
         numbersCheckbox.checked = true;
+        numbersCheckbox.setAttribute('checked', 'checked');
     }
     if (localStorage.getItem("symbols") === "true") {
         symbolsCheckbox.checked = true;
+        symbolsCheckbox.setAttribute('checked', 'checked');
     }
     
     // Debug: Log localStorage values
@@ -96,21 +115,51 @@ if (document.readyState === 'loading') {
 // Additional safety net for GitHub Pages - force initialization on window load
 window.addEventListener('load', function() {
     setTimeout(() => {
-        // Force correct default values on window load (GitHub Pages cache fix)
-        if (!localStorage.getItem("length")) {
+        // Chrome-specific: Force form reset again on window load
+        if (!localStorage.getItem("length") || localStorage.getItem("length") === null) {
             lengthRange.value = 6;
-            lengthDisplay.textContent = lengthRange.value;
+            lengthRange.setAttribute('value', '6');
+            lengthDisplay.textContent = '6';
             updateSliderBackground();
         }
         
-        // Ensure checkboxes are correct
-        if (!localStorage.getItem("uppercase")) uppercaseCheckbox.checked = false;
-        if (!localStorage.getItem("lowercase")) lowercaseCheckbox.checked = false;
-        if (!localStorage.getItem("numbers")) numbersCheckbox.checked = false;
-        if (!localStorage.getItem("symbols")) symbolsCheckbox.checked = false;
+        // Chrome-specific: Ensure checkboxes are correct with attribute manipulation
+        if (!localStorage.getItem("uppercase") || localStorage.getItem("uppercase") !== "true") {
+            uppercaseCheckbox.checked = false;
+            uppercaseCheckbox.removeAttribute('checked');
+        }
+        if (!localStorage.getItem("lowercase") || localStorage.getItem("lowercase") !== "true") {
+            lowercaseCheckbox.checked = false;
+            lowercaseCheckbox.removeAttribute('checked');
+        }
+        if (!localStorage.getItem("numbers") || localStorage.getItem("numbers") !== "true") {
+            numbersCheckbox.checked = false;
+            numbersCheckbox.removeAttribute('checked');
+        }
+        if (!localStorage.getItem("symbols") || localStorage.getItem("symbols") !== "true") {
+            symbolsCheckbox.checked = false;
+            symbolsCheckbox.removeAttribute('checked');
+        }
         
-        console.log("Window load backup initialization completed");
-    }, 100);
+        console.log("Chrome-specific backup initialization completed");
+        console.log("Final slider value:", lengthRange.value);
+        console.log("Final checkbox states:", {
+            uppercase: uppercaseCheckbox.checked,
+            lowercase: lowercaseCheckbox.checked,
+            numbers: numbersCheckbox.checked,
+            symbols: symbolsCheckbox.checked
+        });
+    }, 150);
+    
+    // Additional Chrome fix - force another update after a longer delay
+    setTimeout(() => {
+        if (!localStorage.getItem("length")) {
+            chromeFormReset();
+            lengthDisplay.textContent = lengthRange.value;
+            updateSliderBackground();
+            console.log("Chrome secondary reset completed");
+        }
+    }, 500);
 });
 
 //Character Length

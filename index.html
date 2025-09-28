@@ -25,27 +25,29 @@
   </button>
   </div>
   <div class="generate-details">
+    <form autocomplete="off">
     <div class="length" id="length-container">
       <p class="character-length">Character Length</p>
       <p class="password-length" id="password-length">0</p>
     </div>
-    <input type="range" name="length" id="length" class="choose-length" min="6" max="20" value="6" step="1">
+    <input type="range" name="length" id="length" class="choose-length" min="6" max="20" value="6" step="1" autocomplete="off">
     <div class="check">
-      <input type="checkbox" name="uppercase" id="uppercase">
+      <input type="checkbox" name="uppercase" id="uppercase" autocomplete="off">
       <label for="uppercase">Include Uppercase Letters</label>
     </div>
     <div class="check">
-      <input type="checkbox" name="lowercase" id="lowercase">
+      <input type="checkbox" name="lowercase" id="lowercase" autocomplete="off">
       <label for="lowercase">Include Lowercase Letters</label>
     </div>
     <div class="check">
-      <input type="checkbox" name="numbers" id="numbers">
+      <input type="checkbox" name="numbers" id="numbers" autocomplete="off">
       <label for="numbers">Include Numbers</label>
     </div>
     <div class="check">
-      <input type="checkbox" name="symbols" id="symbols">
+      <input type="checkbox" name="symbols" id="symbols" autocomplete="off">
       <label for="symbols">Include Symbols</label>
     </div>
+    </form>
     <div class="strength-container" id="strength-indicator">
       <p>Strength</p>
       <div class="meter-boxes">
