@@ -30,15 +30,28 @@ const clearBtn = document.getElementById("clear-btn");
 
 // Initialize everything when DOM is loaded
 function initializeApp() {
-
+    
+    // Clear localStorage for testing (remove this line after testing)
+    //localStorage.clear();
+    
     // --- ADD LOCAL STORAGE ---
     if (localStorage.getItem("length")) {
         lengthRange.value = localStorage.getItem("length");
     }
-    if (localStorage.getItem("uppercase")) uppercaseCheckbox.checked = (localStorage.getItem("uppercase") === "true");
-    if (localStorage.getItem("lowercase")) lowercaseCheckbox.checked = (localStorage.getItem("lowercase") === "true");
-    if (localStorage.getItem("numbers")) numbersCheckbox.checked = (localStorage.getItem("numbers") === "true");
-    if (localStorage.getItem("symbols")) symbolsCheckbox.checked = (localStorage.getItem("symbols") === "true");
+    
+    // Set all checkboxes to unchecked by default, then check only if localStorage says so
+    uppercaseCheckbox.checked = localStorage.getItem("uppercase") === "true";
+    lowercaseCheckbox.checked = localStorage.getItem("lowercase") === "true";
+    numbersCheckbox.checked = localStorage.getItem("numbers") === "true";
+    symbolsCheckbox.checked = localStorage.getItem("symbols") === "true";
+    
+    // Debug: Log localStorage values
+    console.log("localStorage values:");
+    console.log("uppercase:", localStorage.getItem("uppercase"));
+    console.log("lowercase:", localStorage.getItem("lowercase"));
+    console.log("numbers:", localStorage.getItem("numbers"));
+    console.log("symbols:", localStorage.getItem("symbols"));
+    
     if (localStorage.getItem("password")) {
         passwordInput.value = localStorage.getItem("password");
         updateStrengthIndicator(passwordInput.value);
@@ -204,5 +217,18 @@ function resetStrengthIndicator() {
 function clearPassword() {
     passwordInput.value = "";
     resetStrengthIndicator();
-    localStorage.setItem("password", "");
+    
+    // Clear all localStorage data
+    localStorage.clear();
+    
+    // Reset all checkboxes to unchecked
+    uppercaseCheckbox.checked = false;
+    lowercaseCheckbox.checked = false;
+    numbersCheckbox.checked = false;
+    symbolsCheckbox.checked = false;
+    
+    // Reset slider to default value
+    lengthRange.value = 6;
+    lengthDisplay.textContent = lengthRange.value;
+    updateSliderBackground();
 }
